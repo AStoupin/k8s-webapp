@@ -13,9 +13,15 @@ pipeline {
         }
 
         container('docker') {
-          sh 'docker build -t k8s-webapp .'
-          sh 'docker tag k8s-webapp astoupin/k8s-webapp'
-          sh 'docker push astoupin/k8s-webapp'
+		 withCredentials([usernameColonPassword(credentialsId: '70d38d8e-f71e-4727-b1aa-b0d8fd11e48d', variable: 'USERPASS')]) {
+		    sh '''
+		      docker build -t k8s-webapp .
+		      docker tag k8s-webapp astoupin/k8s-webapp
+		      docker login -u astoupin -p $USERPASS
+		      docker push astoupin/k8s-webapp 
+		    '''
+		  }          
+          
         }
 
       }
