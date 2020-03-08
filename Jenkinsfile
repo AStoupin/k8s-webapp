@@ -9,7 +9,7 @@ pipeline {
       steps {
       
         container('maven') {
-          sh 'mvn cleam package'
+          sh 'mvn clean package'
         }
 
 
