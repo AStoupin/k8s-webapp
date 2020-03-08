@@ -5,6 +5,8 @@ metadata:
   labels:
     app: k8s-webapp
 spec:
+  imagePullSecrets:
+  - name: regcred
 
   containers:
   - name: maven
@@ -12,20 +14,20 @@ spec:
     command:
     - cat
     tty: true
-
     
-  - name: k8s-webapp
-    image: astoupin/k8s-webapp
-    tty: true
-
-  - name: kubectl
-    image: lachlanevenson/k8s-kubectl:v1.8.8
+  - name: docker 
+    image: docker
     command:
-    - cat
-    tty: true   
-
-  imagePullSecrets:
-  - name: regcred
+    - cat     
+    tty: true    
+    volumeMounts: 
+        - name: docker-storage 
+          mountPath: /var/run  
+  volumes: 
+    - name: docker-storage 
+      hostPath: 
+        path: /var/run      
+        
 
 #kubectl create secret docker-registry regcred --docker-username=astoupin --docker-password=3472Ans123 --docker-server=docker.io     
      

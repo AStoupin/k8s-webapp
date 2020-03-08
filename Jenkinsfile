@@ -12,6 +12,9 @@ pipeline {
           sh 'mvn clean package'
         }
 
+        container('docker') {
+          sh 'docker images'
+        }
 
       }
     }
