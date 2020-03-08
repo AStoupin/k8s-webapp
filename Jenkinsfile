@@ -12,9 +12,10 @@ pipeline {
 		 withCredentials([usernameColonPassword(credentialsId: 'dockerpwd', variable: 'USERPASS')]) {
 		    sh '''
 		      echo $USERPASS >> aaa
-		      cat aaa
 		    '''
 		  } 
+		      
+          sh 'cat aaa'
 		          
           sh 'mvn clean package'
         }
