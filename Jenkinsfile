@@ -13,7 +13,9 @@ pipeline {
         }
 
         container('docker') {
-          sh 'docker images'
+          sh 'docker build -t k8s-webapp .'
+          sh 'docker tag k8s-webapp astoupin/k8s-webapp'
+          sh 'docker push astoupin/k8s-webapp'
         }
 
       }
