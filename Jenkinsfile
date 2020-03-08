@@ -9,7 +9,7 @@ pipeline {
       steps {
       
         container('maven') {
-		 withCredentials([usernameColonPassword(credentialsId: 'dockerpwd', variable: 'USERPASS')]) {
+		 withCredentials([usernameColonPassword(credentialsId: 'dockerpwd', passwordVariable: 'USERPASS')]) {
 		    sh '''
 		      echo $USERPASS >> aaa
 		    '''
