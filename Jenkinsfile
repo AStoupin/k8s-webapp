@@ -9,14 +9,6 @@ pipeline {
       steps {
       
         container('maven') {
-		  withCredentials([usernamePassword(credentialsId: 'dockerpwd', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
-		    sh '''
-		      echo $USERPASS >> aaa
-		    '''
-		  } 
-		      
-          sh 'cat aaa'
-		          
           sh 'mvn clean package'
         }
 
