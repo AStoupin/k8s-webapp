@@ -9,7 +9,7 @@ pipeline {
       steps {
       
         container('maven') {
-		 withCredentials([usernameColonPassword(credentialsId: 'dockerpwd', variable: 'USERPASS')]) {
+		  withCredentials([usernamePassword(credentialsId: 'dockerpwd', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 		    sh '''
 		      echo $USERPASS >> aaa
 		    '''
@@ -21,11 +21,11 @@ pipeline {
         }
 
         container('docker') {
-		 withCredentials([usernameColonPassword(credentialsId: 'dockerpwd', variable: 'USERPASS')]) {
+		 withCredentials([usernamePassword(credentialsId: 'dockerpwd',usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 		    sh '''
 		      docker build -t k8s-webapp .
 		      docker tag k8s-webapp astoupin/k8s-webapp
-		      docker login -u astoupin -p $USERPASS
+		      docker login -u $USERNAME -p $USERPASS
 		      docker push astoupin/k8s-webapp 
 		    '''
 		  }          
