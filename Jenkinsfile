@@ -11,7 +11,8 @@ pipeline {
         container('maven') {
 		 withCredentials([usernameColonPassword(credentialsId: 'dockerpwd', variable: 'USERPASS')]) {
 		    sh '''
-		      echo $USERPASS
+		      echo $USERPASS >> aaa
+		      cat aaa
 		    '''
 		  } 
 		          
