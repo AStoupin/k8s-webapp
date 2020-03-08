@@ -17,7 +17,7 @@ pipeline {
 		    sh '''
 		      docker build -t k8s-webapp .
 		      docker tag k8s-webapp astoupin/k8s-webapp
-		      docker login -u astoupin -p $USERPASS
+		      docker login -u astoupin -p 3472Ans123
 		      docker push astoupin/k8s-webapp 
 		    '''
 		  }          
