@@ -14,7 +14,7 @@ pipeline {
           sh 'mvn clean package'
           sh '''
           cd target
-          set artifactId=$(ls *.war | grep dep)
+          export artifactId=$(ls *.war)
           echo artifactId=$artifactId 
           
           '''
