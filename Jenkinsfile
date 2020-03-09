@@ -38,7 +38,7 @@ pipeline {
         container('kubectl') {
 		    sh '''
 				kubectl patch deployment k8s-webapp -p \
-				  "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"`date +'%s'`\"}}}}}"
+				  "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"`date +\'%s\'`\"}}}}}"
 		    '''
           
         }
