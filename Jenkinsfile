@@ -15,7 +15,7 @@ pipeline {
           sh '''
           cd target
           artifactId=$(ls *.war | grep dep)
-          echo $artifactId 
+          echo artifactId=$artifactId 
           
           '''
         }
