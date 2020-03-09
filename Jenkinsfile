@@ -5,13 +5,18 @@ pipeline {
     }
   }
   stages {
-    stage('Build') {
+    stage('Build component') {
       steps {
       
         container('maven') {
           sh 'mvn clean package'
         }
 
+      }
+    }
+
+    stage('Build & push image') {
+      steps {
         container('docker') {
 		 withCredentials([usernamePassword(credentialsId: 'dockerpwd',usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 		    sh '''
