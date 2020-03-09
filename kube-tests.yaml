@@ -24,8 +24,11 @@ spec:
         - name: docker-storage 
           mountPath: /var/run  
 
-  #- name: k8s-webapp
-  #  image: astoupin/k8s-webapp
+  - name: kubectl
+    command:
+    - cat     
+    tty: true  
+    image: lachlanevenson/k8s-kubectl
 
   volumes: 
     - name: docker-storage 
