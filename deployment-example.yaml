@@ -48,5 +48,8 @@ spec:
         image: astoupin/k8s-webapp
         ports:
         - containerPort: 8080
+      imagePullPolicy: Always
+      imagePullSecrets:
+        - name: regcred        
 
 
