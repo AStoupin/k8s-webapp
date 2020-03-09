@@ -12,6 +12,7 @@ pipeline {
       
         container('maven') {
           sh 'mvn clean package'
+          sh 'echo ! $POM_ARTIFACTID'
         }
 
       }
@@ -22,8 +23,9 @@ pipeline {
         container('docker') {
 		 withCredentials([usernamePassword(credentialsId: 'dockerpwd',usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 		    sh '''
-		      docker build -t k8s-webapp .
-		      docker tag k8s-webapp astoupin/k8s-webapp
+		      docker build -t k8s-webapp -t k8s-webapp:${BUILD_NUMBER} .
+
+		      docker tag k8s-webapp astoupin/k8s-webapp 
 		      docker login -u $USERNAME -p $USERPASS
 		      docker push astoupin/k8s-webapp 
 		    '''
