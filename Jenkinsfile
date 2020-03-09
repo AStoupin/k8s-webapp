@@ -12,7 +12,9 @@ pipeline {
       
         container('maven') {
           sh 'mvn clean package'
-          sh 'echo ! $POM_ARTIFACTID'
+          sh 'cd target'
+          sh 'export artifactId=$(ls *.war | grep dep)'
+          sh 'echo $artifactId '
         }
 
       }
