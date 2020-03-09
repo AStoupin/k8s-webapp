@@ -46,14 +46,25 @@ spec:
       containers:
       - name: k8s-webapp
         image: astoupin/k8s-webapp
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
-      imagePullPolicy: Always
+        volumeMounts:
+        - name: config
+          mountPath: /opt/jboss/wildfly/standalone/configuration/k8s-webapp.properties
+          subPath: k8s-webapp-prod.properties
       imagePullSecrets:
-        - name: regcred        
+        - name: regcred     
+      volumes:
+      - name: config
+        configMap: 
+            name: k8s-webapp-config
+
 ---
 apiVersion: v1
 kind: ConfigMap
+metadata:
+   name: k8s-webapp-config
 data:
   k8s-webapp-dev.properties: |
      env=dev
