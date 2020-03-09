@@ -23,6 +23,10 @@ spec:
     volumeMounts: 
         - name: docker-storage 
           mountPath: /var/run  
+
+  - name: k8s-webapp
+    image: astoupin/k8s-webapp
+
   volumes: 
     - name: docker-storage 
       hostPath: 
