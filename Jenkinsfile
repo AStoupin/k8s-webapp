@@ -12,9 +12,12 @@ pipeline {
       
         container('maven') {
           sh 'mvn clean package'
-          sh 'cd target'
-          sh 'export artifactId=$(ls *.war | grep dep)'
-          sh 'echo $artifactId '
+          sh '''
+          cd target
+          export artifactId=$(ls *.war | grep dep)
+          echo $artifactId 
+          
+          '''
         }
 
       }
@@ -24,8 +27,9 @@ pipeline {
       steps {
         container('docker') {
 		 withCredentials([usernamePassword(credentialsId: 'dockerpwd',usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
+		 //-t k8s-webapp:${BUILD_NUMBER}
 		    sh '''
-		      docker build -t k8s-webapp -t k8s-webapp:${BUILD_NUMBER} .
+		      docker build -t k8s-webapp  .
 
 		      docker tag k8s-webapp astoupin/k8s-webapp 
 		      docker login -u $USERNAME -p $USERPASS
