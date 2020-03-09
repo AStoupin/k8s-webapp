@@ -10,15 +10,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ru.stoupin.webapp.service.ModuleInfoService;
+
 @Controller
 public class MyController {
 	private static final Log LOG = LogFactory.getLog(MyController.class); 
 	
 	private String env;
+	private ModuleInfoService moduleInfoService;
 	
-	MyController(@Value("${env}") String env ){
+	MyController(@Value("${env}") String env, ModuleInfoService moduleInfoService ){
 		LOG.info("MyController Created. To check the Rest use http://localhost:8080/k8s-webapp");
+		
 		this.env = env;
+		this.moduleInfoService = moduleInfoService;
 		
 	}
 	
@@ -27,41 +32,9 @@ public class MyController {
 	public @ResponseBody String hello() {
 		
 		LOG.info("hello hit");
-		return String.format("Hello app  %s on %s ", getVersion(), env);
+		return String.format("Hello App  %s on %s ", moduleInfoService.getVersion(), env);
 	}
 
 	
-	public synchronized String getVersion() {
-	    String version = null;
 
-	    // try to load from maven properties first
-	    try {
-	        Properties p = new Properties();
-	        InputStream is = getClass().getResourceAsStream("/META-INF/maven/ru.stoupin/webapp/pom.properties");
-	        if (is != null) {
-	            p.load(is);
-	            version = p.getProperty("version", "");
-	        }
-	    } catch (Exception e) {
-	        // ignore
-	    }
-
-	    // fallback to using Java API
-	    if (version == null) {
-	        Package aPackage = getClass().getPackage();
-	        if (aPackage != null) {
-	            version = aPackage.getImplementationVersion();
-	            if (version == null) {
-	                version = aPackage.getSpecificationVersion();
-	            }
-	        }
-	    }
-
-	    if (version == null) {
-	        // we could not compute the version so use a blank
-	        version = "";
-	    }
-
-	    return version;
-	} 	
 }
