@@ -19,7 +19,7 @@ public class MyController {
 	public @ResponseBody String hello() {
 		
 		LOG.info("hello hit");
-		return "Hello";
+		return "Hello app";
 	}
 
 }
