@@ -5,6 +5,19 @@ pipeline {
     }
   }
   stages {
+    stage('Deploy') {
+      steps {
+        container('kubectl') {
+		    sh '''
+				kubectl patch deployment k8s-webapp -p \
+				  \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"annotations\\\":{\\\"date\\\":\\\"`date +\'%s\'`\\\"}}}}}"
+		    '''
+          
+        }
+
+      }
+    } 
+      
     stage('Build component') {
       steps {
       
@@ -33,18 +46,7 @@ pipeline {
     }
     
 
-    stage('Deploy') {
-      steps {
-        container('kubectl') {
-		    sh '''
-				kubectl patch deployment k8s-webapp -p \
-				  "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"`date +\'%s\'`\"}}}}}"
-		    '''
-          
-        }
-
-      }
-    }    
+   
      
   }
 }
