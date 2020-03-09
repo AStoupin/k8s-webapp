@@ -28,7 +28,7 @@ spec:
       targetPort: 8080
       name: p1
 
-
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -51,9 +51,16 @@ spec:
       imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred        
-
-
-
+---
+apiVersion: v1
+kind: ConfigMap
+data:
+  k8s-webapp-dev.properties: |
+     env=dev
+  k8s-webapp-prod.properties: |
+     env=prod
+     
+     
 #Patch deployments
 #kubectl patch deployment k8s-webapp -p \
 #  "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"`date +'%s'`\"}}}}}"
