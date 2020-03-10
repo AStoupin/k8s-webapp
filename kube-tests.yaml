@@ -9,14 +9,14 @@ spec:
   - name: regcred
 
   containers:
-  - name: maven
-    image: maven:alpine
-    command:
-    - cat
-    tty: true
+#  - name: maven
+#    image: maven:alpine
+#    command:
+#    - cat
+#    tty: true
     
-  - name: docker 
-    image: docker
+  - name: docker-node 
+    image: docker-node
     command:
     - cat     
     tty: true    
@@ -24,11 +24,11 @@ spec:
         - name: docker-storage 
           mountPath: /var/run  
 
-  - name: kubectl
-    command:
-    - cat     
-    tty: true  
-    image: lachlanevenson/k8s-kubectl
+#  - name: kubectl
+#    command:
+#    - cat     
+#    tty: true  
+#    image: lachlanevenson/k8s-kubectl
 
   volumes: 
     - name: docker-storage 

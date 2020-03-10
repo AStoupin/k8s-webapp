@@ -10,13 +10,13 @@ pipeline {
     stage('Build component') {
       steps {
       
-        container('maven') {
+        container('docker-node') {
           sh 'mvn clean package'
         }
 
       }
     }
-
+/*
     stage('Build & push image') {
       steps {
         container('docker') {
@@ -42,10 +42,10 @@ pipeline {
 
       }
     }
-    
+    */
     stage('Deploy') {
       steps {
-        container('kubectl') {
+        container('docker-node') {
         //update pods
 		    sh '''
 				kubectl patch deployment k8s-webapp -p \
