@@ -1,7 +1,8 @@
 pipeline {
   agent {
     kubernetes {
-		containerTeamplates 'jenkins-slave1'
+		customWorkspace  'jenkins-slave1'
+		
     }
   }
   stages {
