@@ -19,7 +19,7 @@ pipeline {
 
     stage('Build & push image') {
       steps {
-        container('docker') {
+        container('docker-node') {
 		 withCredentials([usernamePassword(credentialsId: 'dockerpwd',usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 
 		    sh '''
