@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-		label 'jenkins-slave1'
+		containerTeamplates 'jenkins-slave1'
     }
   }
   stages {
