@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-      yamlFile 'kube-tests.yaml'
+
     }
   }
   stages {
@@ -10,7 +10,7 @@ pipeline {
     stage('Build component') {
       steps {
       
-        container('docker-node') {
+        container('maven') {
           sh 'mvn clean package'
         }
 
@@ -19,7 +19,7 @@ pipeline {
 
     stage('Build & push image') {
       steps {
-        container('docker-node') {
+        container('docker') {
 		 withCredentials([usernamePassword(credentialsId: 'dockerpwd',usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 
 		    sh '''
@@ -42,10 +42,10 @@ pipeline {
 
       }
     }
- 
+ //      yamlFile 'kube-tests.yaml'
     stage('Deploy') {
       steps {
-        container('docker-node') {
+        container('kubectl') {
         //update pods
 		    sh '''
 				kubectl patch deployment k8s-webapp -p \
