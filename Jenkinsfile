@@ -9,11 +9,10 @@ pipeline {
       
     stage('Build component') {
       steps {
-      
-        container('maven') {
           sh 'mvn clean package'
+/*        container('maven') {
         }
-
+*/
       }
     }
 
