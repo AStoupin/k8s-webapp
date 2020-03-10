@@ -16,7 +16,7 @@ pipeline {
 
       }
     }
-/*
+
     stage('Build & push image') {
       steps {
         container('docker') {
@@ -30,11 +30,11 @@ pipeline {
 	          echo artifactId=$artifactId 
 
 		      docker tag k8s-webapp astoupin/k8s-webapp 
-		      docker tag k8s-webapp astoupin/k8s-webapp:$artifactId__${BUILD_NUMBER}   
+		      docker tag k8s-webapp astoupin/k8s-webapp:${artifactId}__${BUILD_NUMBER}   
 		      
 		      docker login -u $USERNAME -p $USERPASS
 		      docker push astoupin/k8s-webapp
-		      docker push astoupin/k8s-webapp:$artifactId__${BUILD_NUMBER}
+		      docker push astoupin/k8s-webapp:${artifactId}__${BUILD_NUMBER}
 		    '''
 		  }          
           
@@ -42,7 +42,7 @@ pipeline {
 
       }
     }
-    */
+ 
     stage('Deploy') {
       steps {
         container('docker-node') {
