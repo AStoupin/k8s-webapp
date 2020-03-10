@@ -16,7 +16,7 @@ spec:
 #    tty: true
     
   - name: docker-node 
-    image: docker-node
+    image: astoupin/docker-node
     command:
     - cat     
     tty: true    
