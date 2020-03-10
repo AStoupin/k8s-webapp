@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-		customWorkspace  'jenkins-slave1'
+		inheritFrom  'jenkins-slave1'
 		
     }
   }
