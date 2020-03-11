@@ -8,6 +8,13 @@ pipeline {
   }
   stages {
 
+    stage('Approval') {
+      steps {
+        script {
+          def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+        }
+      }
+    }
       
     stage('Build component') {
       steps {
@@ -43,19 +50,20 @@ pipeline {
 
       }
     }
- //      yamlFile 'kube-tests.yaml'
+
     stage('Deploy') {
       steps {
         container('kubectl') {
         //update pods
 		    sh '''
-				kubectl patch deployment k8s-webapp -p \
+				kubectl patch deployment k8s-webapp -n default -p \
 				  \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"annotations\\\":{\\\"date\\\":\\\"`date +\'%s\'`\\\"}}}}}"
 		    '''
           
         }
 
       }
-    }     
+    }  
+        
   }
 }

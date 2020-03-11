@@ -1,9 +1,9 @@
+# Create Jenkins Pod in with label jenkins-slave-label  (in Jenkins\configuration\Kubernates)
+#
 apiVersion: v1
 kind: Pod
 metadata:
-  name: k8s-webapp
-  labels:
-    app: k8s-webapp
+  name: k8s-webapp-build-pod
 spec:
   imagePullSecrets:
   - name: regcred
@@ -14,7 +14,10 @@ spec:
     command:
     - cat
     tty: true
-    
+    resources:
+      requests:
+        cpu: 10m
+ 
   - name: docker 
     image: docker
     command:
@@ -23,12 +26,18 @@ spec:
     volumeMounts: 
         - name: docker-storage 
           mountPath: /var/run  
+    resources:
+      requests:
+        cpu: 10m
 
   - name: kubectl
     command:
     - cat     
     tty: true  
     image: lachlanevenson/k8s-kubectl
+    resources:
+      requests:
+        cpu: 10m
 
   volumes: 
     - name: docker-storage 
