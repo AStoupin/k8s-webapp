@@ -8,13 +8,20 @@ pipeline {
   }
   stages {
 
-    stage('Approval') {
-      steps {
-        script {
-          def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+   // stage('Approval') {
+   //   steps {
+   //     script {
+   //       def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+   //     }
+   //   }
+   // }
+  	stage ('Invoke_pipeline') {
+        steps {
+            build job: 'pipeline1', parameters: [
+            string(name: 'param1', value: "value1")
+            ]
         }
-      }
-    }
+    }   
       
     stage('Build component') {
       steps {
