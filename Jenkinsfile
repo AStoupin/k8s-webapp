@@ -15,13 +15,7 @@ pipeline {
    //     }
    //   }
    // }
-  	stage ('Invoke_pipeline') {
-        steps {
-            build job: 'pipeline1', parameters: [
-            string(name: 'param1', value: "value1")
-            ]
-        }
-    }   
+ 
       
     stage('Build component') {
       steps {
@@ -58,19 +52,13 @@ pipeline {
       }
     }
 
-    stage('Deploy') {
-      steps {
-        container('kubectl') {
-        //update pods
-		    sh '''
-				kubectl patch deployment k8s-webapp -n default -p \
-				  \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"annotations\\\":{\\\"date\\\":\\\"`date +\'%s\'`\\\"}}}}}"
-		    '''
-          
+  	stage ('Deploy') {
+        steps {
+            build job: 'deployComponent', parameters: [
+            string(name: 'deploymentName', value: 'k8s-webapp')
+            ]
         }
-
-      }
-    }  
+    }   
         
   }
 }
