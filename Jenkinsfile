@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-		label  'jenkins-slave1'
+		label  'jenkins-slave2'
 		
     }
     
