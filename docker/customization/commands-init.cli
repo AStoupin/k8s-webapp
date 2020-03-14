@@ -1,0 +1,12 @@
+# Default CLI script
+connect
+batch
+
+# Deploy the WAR example
+deploy --name=k8s-webapp.war -f /opt/jboss/wildfly/customization/$WAR_FILE_NAME
+ 
+
+
+# Execute and reload
+run-batch
+:reload
