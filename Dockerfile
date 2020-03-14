@@ -1,7 +1,7 @@
 FROM astoupin/wf10-base
 
 # Copy cli-settings 
-COPY --chown=jboss ./customization/. /opt/jboss/wildfly/customization
+COPY --chown=jboss ./docker/customization/. /opt/jboss/wildfly/customization
 # Copy  war-file
 COPY --chown=jboss ./target/*.war /opt/jboss/wildfly/customization
 
