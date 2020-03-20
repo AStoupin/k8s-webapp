@@ -20,12 +20,21 @@ pipeline {
     stage('Build component') {
       steps {
 	    container('maven') {
-          sh 'mvn clean package'
+          sh 'mvn clean package  -B -DskipTests'
         }
 
       }
     }
-
+    stage('Test') {
+        steps {
+            sh 'mvn test'
+        }
+        post {
+            always {
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+    }
     stage('Build & push image') {
       steps {
         container('docker') {
