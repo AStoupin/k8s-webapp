@@ -29,11 +29,8 @@ pipeline {
         steps {
             container('maven') {
                 sh 'mvn test'
-                post {
-                    always {
+
                         junit 'target/surefire-reports/*.xml'
-                    }
-                }
 
             }
         }
