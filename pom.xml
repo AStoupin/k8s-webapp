@@ -10,10 +10,10 @@
 	</parent>
 	<groupId>ru.stoupin</groupId>
 	<artifactId>webapp</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<packaging>war</packaging>
 	<name>webapp</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo webapp for WildFly by Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
