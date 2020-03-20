@@ -2,6 +2,16 @@
 connect
 batch
 
+#Specific logging
+/subsystem=logging/logging-profile=k8s-webapp:add
+/subsystem=logging/logging-profile=k8s-webapp/pattern-formatter=k8s-webapp-format:add(pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}  %-5p [%t] [] %c - %m %n")
+/subsystem=logging/logging-profile=k8s-webapp/size-rotating-file-handler=k8s-webapp-handler:add(max-backup-index=40,rotate-size=4M, file={relative-to="jboss.server.log.dir", path="k8s-webapp.log"}, suffix=".yyyy-MM-dd", named-formatter=k8s-webapp-format)
+/subsystem=logging/logging-profile=k8s-webapp/console-handler=k8s-webapp-handler-cosnole:add(named-formatter=k8s-webapp-format)
+/subsystem=logging/logging-profile=k8s-webapp/root-logger=ROOT:add(handlers=["k8s-webapp-handler", "k8s-webappe-handler-cosnole"], level="INFO")
+/subsystem=logging/logging-profile=k8s-webapp/logger=org.hibernate.SQL:add(handlers=["k8s-webapp-handler", "k8s-webapp-handler-cosnole"], level="DEBUG")
+
+
+
 # Deploy the WAR example
 deploy --name=k8s-webapp.war -f /opt/jboss/wildfly/customization/$WAR_FILE_NAME
  
