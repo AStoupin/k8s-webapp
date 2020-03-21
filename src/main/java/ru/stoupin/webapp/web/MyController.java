@@ -29,7 +29,8 @@ public class MyController {
 	public @ResponseBody String hello() {
 		
 		LOG.info("hello hit");
-		return String.format("Hello App  %s on %s ", moduleInfoService.getVersion(), env);
+		String sys1=System.getenv("system1");
+		return String.format("Hello App  %s on %s  with system %s", moduleInfoService.getVersion(), env, sys1);
 	}
 
 	
