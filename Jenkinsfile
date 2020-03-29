@@ -41,7 +41,7 @@ pipeline {
 		 withCredentials([usernamePassword(credentialsId: 'dockerpwd',usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 
 		    sh '''
-		      docker build -t k8s-webapp .
+		      docker build --pull -t k8s-webapp  .
 
 	          cd target
 	          export artifactId=$(ls *.war)

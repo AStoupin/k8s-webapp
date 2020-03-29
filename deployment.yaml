@@ -47,8 +47,8 @@ spec:
       - name: k8s-webapp
         image: astoupin/k8s-webapp
         env:
-          - name: system1
-            value: "Hello from the environment"
+        - name: system1
+          value: "Hello from the environment"
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -62,7 +62,6 @@ spec:
       - name: config
         configMap: 
             name: k8s-webapp-config
-
 ---
 apiVersion: v1
 kind: ConfigMap
