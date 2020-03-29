@@ -13,7 +13,7 @@ batch
 
 
 # Deploy the WAR example
-deploy --name=k8s-webapp.war -f /opt/jboss/wildfly/customization/$WAR_FILE_NAME
+deploy --name=k8s-webapp.war --path=/opt/jboss/wildfly/customization/${env.WAR_FILE_NAME}
  
 
 
