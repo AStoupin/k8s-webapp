@@ -38,8 +38,13 @@ public class MyController {
 		
 		LOG.info("bad hit");
 	
-		Runtime.getRuntime().halt(100);
-		return "never return";
+		//Runtime.getRuntime().halt(100);
+		int val =  (int) (Math.random() * 10);
+		
+		if (9 == val)
+			Runtime.getRuntime().halt(100);
+		
+		return String.format("Bad %d", val);
 	}	
 	
 
