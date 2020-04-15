@@ -33,6 +33,14 @@ public class MyController {
 		return String.format("Hello App  %s on %s  with system %s", moduleInfoService.getVersion(), env, sys1);
 	}
 
+	@RequestMapping("/bad")
+	public @ResponseBody String bad() {
+		
+		LOG.info("bad hit");
+	
+		Runtime.getRuntime().halt(100);
+		return "never return";
+	}	
 	
 
 }
